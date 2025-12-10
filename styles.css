@@ -1,0 +1,11 @@
+body {
+  font-family: "Source Code Pro", monospace;
+}
+
+header {
+  margin: 0.5rem 0.5rem 0 0.5rem;
+}
+
+header h1 {
+  margin: 0;
+}
