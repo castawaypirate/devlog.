@@ -65,11 +65,15 @@ fetch("devlog.txt")
     const tbody = document.createElement("tbody");
     postObjects.forEach((post, index) => {
       const tr = document.createElement("tr");
+
+      const trPostTitle = document.createElement("tr");
+
       const numberCell = document.createElement("td");
       const number = document.createElement("h3");
       number.className = "number";
       number.textContent = 1 + index + ". ";
       numberCell.appendChild(number);
+
       const postCell = document.createElement("td");
 
       const postContainer = document.createElement("div");
@@ -78,19 +82,47 @@ fetch("devlog.txt")
       const postTitle = document.createElement("h3");
       postTitle.className = "post-title";
       postTitle.textContent = post.title;
+      postTitle.addEventListener("click", function () {
+        showPost(this);
+      });
 
       const postDetails = document.createElement("div");
       postDetails.className = "post-details";
 
+      const trPostContent = document.createElement("tr");
+      trPostContent.className = "tr-post-content-invisible";
+      const emptyCell = document.createElement("td");
+      const postContentCell = document.createElement("td");
+      const postContent = document.createElement("p");
+      postContent.innerHTML = `${post.body}`;
+      postContentCell.appendChild(postContent);
+
+      trPostContent.appendChild(emptyCell);
+      trPostContent.appendChild(postContentCell);
+
       postContainer.appendChild(postTitle);
       postContainer.appendChild(postDetails);
-
+      // postContainer.appendChild(postContent);
       postCell.appendChild(postContainer);
-      tr.appendChild(numberCell);
-      tr.appendChild(postCell);
+
+      trPostTitle.appendChild(numberCell);
+      trPostTitle.appendChild(postCell);
+
+      tr.appendChild(trPostTitle);
+      tr.appendChild(trPostContent);
+
       tbody.appendChild(tr);
     });
     table.appendChild(tbody);
     postsContainer.appendChild(table);
   })
   .catch((e) => console.error(e));
+
+function showPost(el) {
+  let postContent = el.parentNode.parentNode.parentNode.nextSibling;
+  if (postContent.className.includes("invisible")) {
+    postContent.className = "tr-post-content-visible";
+  } else {
+    postContent.className = "tr-post-content-invisible";
+  }
+}

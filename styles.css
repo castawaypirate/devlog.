@@ -9,3 +9,15 @@ header {
 header h1 {
   margin: 0;
 }
+
+.post-title:hover {
+  cursor: pointer;
+}
+
+.tr-post-content-visible {
+  display: block;
+}
+
+.tr-post-content-invisible {
+  display: none;
+}
