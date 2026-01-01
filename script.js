@@ -1,8 +1,12 @@
 class Post {
-  constructor(title, body) {
+  constructor(title) {
     this.title = title;
-    this.body = body;
+    this.body = [];
     this.dates = [];
+  }
+
+  addBody(body) {
+    this.body.push(body);
   }
 
   addDate(date) {
@@ -18,35 +22,26 @@ fetch("devlog.txt")
     for (let post of posts) {
       let contents = post.split("#").slice(1);
       let title = contents[0].replace("Title: ", "").replace(/\n/g, "");
-      let body = contents[2].replace("Body: ", "").replace(/\n/g, "<br>");
+      let body = contents[2].replace("Body: ", "").replace(/\n/g, "");
       let date = contents[1].replace("Date: ", "").replace(/\n/g, "");
       let exists = false;
       for (let postObject of postObjects) {
         if (postObject.title === title) {
-          postObject.body += body;
+          postObject.addBody(body);
           postObject.addDate(date);
           exists = true;
         }
       }
 
       if (!exists) {
-        let postObject = new Post(title, body);
+        let postObject = new Post(title);
+        postObject.addBody(body);
         postObject.addDate(date);
         postObjects.push(postObject);
       }
     }
 
     postObjects.sort((a, b) => a.dates[0] < b.dates[0]);
-    console.log(postObjects);
-
-    // for (let post of postObjects) {
-    //   const node = document.createElement("div");
-    //   node.textContent = post.title;
-    //   postsContainer.appendChild(node);
-    //   const para = document.createElement("p");
-    //   para.innerHTML = `<div>${post.body}</div>`;
-    //   postsContainer.appendChild(para);
-    // }
 
     const formatDate = (date) => {
       return new Intl.DateTimeFormat("en-US", {
@@ -57,7 +52,6 @@ fetch("devlog.txt")
     };
 
     const postsContainer = document.querySelector("#posts-container");
-    // clean dashboard from previous posts
     postsContainer.innerHTML = "";
 
     const table = document.createElement("table");
@@ -93,8 +87,19 @@ fetch("devlog.txt")
       trPostContent.className = "tr-post-content-invisible";
       const emptyCell = document.createElement("td");
       const postContentCell = document.createElement("td");
-      const postContent = document.createElement("p");
-      postContent.innerHTML = `${post.body}`;
+      const postContent = document.createElement("div");
+      postContent.innerHTML = "";
+      for (let i = 0; i < post.dates.length; i++) {
+        const [day, month, year] = post.dates[i].split("-");
+        const convertedDate = new Date(+year, +month - 1, +day);
+
+        postContent.innerHTML += `
+           <h4>${formatDate(convertedDate)}</h4>
+           <br>
+           <div>${post.body[i]}</div>
+           <br>`;
+      }
+
       postContentCell.appendChild(postContent);
 
       trPostContent.appendChild(emptyCell);
@@ -102,9 +107,8 @@ fetch("devlog.txt")
 
       postContainer.appendChild(postTitle);
       postContainer.appendChild(postDetails);
-      // postContainer.appendChild(postContent);
-      postCell.appendChild(postContainer);
 
+      postCell.appendChild(postContainer);
       trPostTitle.appendChild(numberCell);
       trPostTitle.appendChild(postCell);
 
