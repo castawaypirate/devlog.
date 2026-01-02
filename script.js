@@ -43,14 +43,6 @@ fetch("devlog.txt")
 
     postObjects.sort((a, b) => a.dates[0] < b.dates[0]);
 
-    const formatDate = (date) => {
-      return new Intl.DateTimeFormat("en-US", {
-        day: "numeric",
-        month: "short",
-        year: "numeric",
-      }).format(date);
-    };
-
     const postsContainer = document.querySelector("#posts-container");
     postsContainer.innerHTML = "";
 
@@ -81,20 +73,24 @@ fetch("devlog.txt")
       });
 
       const postDetails = document.createElement("div");
+      postDetails.innerText = `${formatDate(post.dates[0])}|${formatDate(post.dates[post.dates.length - 1])}`;
       postDetails.className = "post-details";
 
       const trPostContent = document.createElement("tr");
       trPostContent.className = "tr-post-content-invisible";
+
       const emptyCell = document.createElement("td");
+      const empty = document.createElement("h3");
+      empty.className = "number";
+      empty.innerHTML = "&nbsp;&nbsp;";
+      emptyCell.appendChild(empty);
+
       const postContentCell = document.createElement("td");
       const postContent = document.createElement("div");
       postContent.innerHTML = "";
       for (let i = 0; i < post.dates.length; i++) {
-        const [day, month, year] = post.dates[i].split("-");
-        const convertedDate = new Date(+year, +month - 1, +day);
-
         postContent.innerHTML += `
-           <h4>${formatDate(convertedDate)}</h4>
+           <h4>${formatDate(post.dates[i])}</h4>
            <br>
            <div>${post.body[i]}</div>
            <br>`;
@@ -129,4 +125,18 @@ function showPost(el) {
   } else {
     postContent.className = "tr-post-content-invisible";
   }
+}
+
+function formatDate(date) {
+  const dateFormat = (date) => {
+    return new Intl.DateTimeFormat("en-US", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    }).format(date);
+  };
+
+  const [day, month, year] = date.split("-");
+  const convertedDate = new Date(+year, +month - 1, +day);
+  return dateFormat(convertedDate);
 }
