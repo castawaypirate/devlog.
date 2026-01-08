@@ -51,6 +51,7 @@ fetch("devlog.txt")
     const tbody = document.createElement("tbody");
     postObjects.forEach((post, index) => {
       const tr = document.createElement("tr");
+      tr.className = "outside";
 
       const trPostTitle = document.createElement("tr");
 
@@ -73,8 +74,20 @@ fetch("devlog.txt")
       });
 
       const postDetails = document.createElement("div");
-      postDetails.innerText = `${formatDate(post.dates[0])}|${formatDate(post.dates[post.dates.length - 1])}`;
+      const divider = document.createElement("div");
+      divider.className = "divider";
+      divider.innerText = "|";
+      const createdAt = document.createElement("div");
+      createdAt.className = "date";
+      createdAt.innerText = `${formatDate(post.dates[0])}`;
+      const updatedAt = document.createElement("div");
+      updatedAt.className = "date";
+      updatedAt.innerText = `${formatDate(post.dates[post.dates.length - 1])}`;
       postDetails.className = "post-details";
+
+      postDetails.appendChild(createdAt);
+      postDetails.appendChild(divider);
+      postDetails.appendChild(updatedAt);
 
       const trPostContent = document.createElement("tr");
       trPostContent.className = "tr-post-content-invisible";

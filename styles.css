@@ -10,8 +10,40 @@ header h1 {
   margin: 0;
 }
 
+.container {
+  margin: 0 0.5rem 0 0.5rem;
+}
+
+table {
+  h3 {
+    margin-top: 0;
+  }
+}
+
+.dashboard-table {
+  margin-top: 0.5rem;
+}
+
 td {
   vertical-align: text-top;
+}
+
+.post-container {
+  margin-bottom: 0.75rem;
+}
+
+.post-title {
+  margin-bottom: 0;
+}
+
+.post-title:hover {
+  cursor: pointer;
+}
+
+.post-details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .number {
@@ -19,8 +51,13 @@ td {
   font-size: 1rem;
 }
 
-.post-title:hover {
-  cursor: pointer;
+.divider {
+  font-size: 0.9rem;
+  margin: 0 1px 2px 1px;
+}
+
+.date {
+  font-size: 0.9rem;
 }
 
 .tr-post-content-visible {
