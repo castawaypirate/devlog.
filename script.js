@@ -78,9 +78,11 @@ fetch("devlog.txt")
       divider.className = "divider";
       divider.innerText = "|";
       const createdAt = document.createElement("div");
+      createdAt.title = "created at";
       createdAt.className = "date";
       createdAt.innerText = `${formatDate(post.dates[0])}`;
       const updatedAt = document.createElement("div");
+      updatedAt.title = "updated at";
       updatedAt.className = "date";
       updatedAt.innerText = `${formatDate(post.dates[post.dates.length - 1])}`;
       postDetails.className = "post-details";
