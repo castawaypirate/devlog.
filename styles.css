@@ -60,6 +60,10 @@ td {
   font-size: 0.9rem;
 }
 
+h4 {
+  margin: 0;
+}
+
 .tr-post-content-visible {
   display: block;
 }
