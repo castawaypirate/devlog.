@@ -22,7 +22,9 @@ fetch("devlog.txt")
     for (let post of posts) {
       let contents = post.split("#").slice(1);
       let title = contents[0].replace("Title: ", "").replace(/\n/g, "");
-      let body = contents[2].replace("Body: ", "").replace(/\n/g, "");
+      let body = formatBody(
+        contents[2].replace("Body: ", "").replace(/\n/g, ""),
+      );
       let date = contents[1].replace("Date: ", "").replace(/\n/g, "");
       let exists = false;
       for (let postObject of postObjects) {
@@ -154,4 +156,23 @@ function formatDate(date) {
   const [day, month, year] = date.split("-");
   const convertedDate = new Date(+year, +month - 1, +day);
   return dateFormat(convertedDate);
+}
+
+function formatBody(body) {
+  let arr = body.split("^");
+  let formattedBody = "";
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i][0] === " ") {
+      arr[i] = arr[i].slice(1, arr[i].length);
+    }
+    if (arr[i].includes("img_")) {
+      arr[i] = `
+         <br>
+         <img src="images/${arr[i]}"/>
+         <br>`;
+    }
+    formattedBody += arr[i];
+  }
+
+  return formattedBody;
 }

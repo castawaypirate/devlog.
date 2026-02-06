@@ -71,3 +71,8 @@ h4 {
 .tr-post-content-invisible {
   display: none;
 }
+
+img {
+  border: 1px solid black;
+  max-width: 95vw;
+}

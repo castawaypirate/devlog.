@@ -1,19 +1,14 @@
 @@@
+#Title: How to become a hacker
+#Date: 06-02-2026
+#Body: Execute this in your browser console to conquer the machine. You don't know what the browser console is? Google it or ask your AI friend (be aware you just burned a tree). ^img_drunk.png^ You tried to copy and paste it? We don't do dat here, you script kitty. Type it yourself. Then experiment with different values. Congratulations, you are 1% more hacker now.
+
+@@@
 #Title: Test
 #Date: 10-12-2025
-#Body: kappa kappa
+#Body: kappa
 
 @@@
-#Title: Test2
-#Date: 10-12-2025
-#Body: kappa test
-
-@@@
-#Title: Test2
+#Title: Test
 #Date: 27-12-2025
-#Body: kappa test
-
-@@@
-#Title: Test3
-#Date: 9-12-2025
-#Body: kappa test
+#Body: test
