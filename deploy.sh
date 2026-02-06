@@ -10,7 +10,6 @@ fi
 
 for filename in *; do
     if [ ! "${filename##*.}" = "sh" ]; then
-        echo "$filename"
         sudo cp -r "$filename" "$dir"/"$filename"
     fi
 done
